@@ -14,6 +14,13 @@
     ESP32
     Adafruit Max 98357A I2S Amp
 
+    I2S Amp Wiring:
+    LRC = 25
+    BCLK = 26
+    DIN = 22
+    GAIN = G (different connections change the gain)
+
+
     If you find what I do useful and would like to support me,
     please consider becoming a sponsor on Github
     https://github.com/sponsors/witnessmenow/
@@ -24,7 +31,7 @@
     Twitter: https://twitter.com/witnessmenow
  *******************************************************************/
 
- 
+
 // Original Codes header:
 
 /*
@@ -63,7 +70,7 @@
 // https://github.com/pschatzmann/ESP32-A2DP
 
 #include <arduinoFFT.h>
-// Library to do the FFT (seperating the audio into different freuencies) 
+// Library to do the FFT (seperating the audio into different freuencies)
 
 // Can be installed through the library manager
 // https://github.com/kosme/arduinoFFT
@@ -155,15 +162,15 @@ void renderFFT(void * parameter) {
 
       for (byte band = 0; band < NUM_BANDS; band++) {
         intensity = map(peak[band], 1, amplitude, 0, 8);
-//        Serial.print(intensity);
-//        Serial.print(" | ");
-        if(band == VOCAL_CHANNEL){
+        //Serial.print(intensity);
+        //Serial.print(" | ");
+        if (band == VOCAL_CHANNEL) {
           digitalWrite(5, (intensity >= VOCAL_THRESHOLD));
         }
 
       }
 
-//      Serial.println("");
+      //Serial.println("");
 
 
       if ((millis() - lastVisualizationUpdate) > 1000) {
@@ -225,7 +232,7 @@ void setup() {
 
   a2dp_sink.set_avrc_metadata_callback(avrc_metadata_callback);
   a2dp_sink.set_stream_reader(read_data_stream);
-  a2dp_sink.start("MyMusic");
+  a2dp_sink.start("Unicorn");
 }
 
 void loop() {
